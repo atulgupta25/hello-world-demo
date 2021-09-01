@@ -18,7 +18,7 @@ spec:
     spec:
       containers:
       - name: hello-world
-        image: atulgupta2593/hello-world-demo:v2
+        image: atulgupta2593/hello-world-demo:v1
         imagePullPolicy: Always
         ports:
         - containerPort: 8080
@@ -40,7 +40,7 @@ spec:
       - setWeight: 20
       - pause: {duration: 10}
       - setWeight: 50
-      - pause: {duration: 20}
+      - pause: {duration: 30}
 ---
 apiVersion: argoproj.io/v1alpha1
 kind: AnalysisTemplate
