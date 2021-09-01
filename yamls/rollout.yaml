@@ -52,6 +52,7 @@ spec:
     value: http://hello-world-canary.default.svc.cluster.local/version
   metrics:
   - name: webcheck
+    interval: 1s
     failureCondition: result != 'true'
     successCondition: result == 'true'
     provider:
