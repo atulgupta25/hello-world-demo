@@ -17,6 +17,7 @@ kind: Service
 metadata:
   name: hello-world-canary
 spec:
+  clusterIP: 10.100.136.34
   ports:
     - name: http
       port: 80
