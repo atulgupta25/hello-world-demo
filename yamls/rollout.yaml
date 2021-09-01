@@ -18,7 +18,7 @@ spec:
     spec:
       containers:
       - name: hello-world
-        image: atulgupta2593/hello-world-demo:v3
+        image: atulgupta2593/hello-world-demo:v1
         imagePullPolicy: Always
         ports:
         - containerPort: 8080
