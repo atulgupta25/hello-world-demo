@@ -4,7 +4,7 @@ kind: Rollout
 metadata:
   annotations:
     linkerd.io/inject: enabled
-  name: hello-world-canary
+  name: hello-world-demo
 spec:
   replicas: 2
   revisionHistoryLimit: 1
