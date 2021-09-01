@@ -49,7 +49,7 @@ metadata:
 spec:
   args:
   - name: api-url
-    value: http://hello-world-canary.default.svc.cluster.local/version
+    value: http://10.100.136.34:80/version
   metrics:
   - name: webcheck
     interval: 2s
