@@ -54,7 +54,7 @@ spec:
   - name: webcheck
     interval: 2s
     count: 1
-    failureLimit: 2
+    failureLimit: 1
     failureCondition: result != 'true'
     successCondition: result == 'true'
     provider:
