@@ -1,0 +1,62 @@
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Rollout
+metadata:
+  annotations:
+    linkerd.io/inject: enabled
+  name: hello-world-canary
+spec:
+  replicas: 2
+  revisionHistoryLimit: 1
+  selector:
+    matchLabels:
+      app: hello-world
+  template:
+    metadata:
+      labels:
+        app: hello-world
+    spec:
+      containers:
+      - name: hello-world
+        image: atulgupta2593/hello-world-demo:v1
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 8080
+  strategy:
+    canary:
+      stableService: hello-world-stable
+      canaryService: hello-world-canary
+      trafficRouting:
+       smi:
+        rootService: root-svc
+        trafficSplitName: demo-traffic-split
+      analysis:
+       templates:
+       - templateName: webcheck
+       startingStep: 2
+      steps:
+      - setWeight: 10
+      - pause: {duration: 10}
+      - setWeight: 20
+      - pause: {duration: 10}
+      - setWeight: 50
+      - pause: {duration: 20}
+---
+apiVersion: argoproj.io/v1alpha1
+kind: AnalysisTemplate
+metadata:
+  name: webcheck
+spec:
+  args:
+  - name: api-url
+    value: http://10.110.234.236:80/version
+  metrics:
+  - name: webcheck
+    interval: 2s
+    failureCondition: result != 'true'
+    successCondition: result == 'true'
+    provider:
+      web:
+        # paceholders are resolved when an AnalysisRun is created
+        url: "{{ args.api-url }}"
+        jsonPath: "{$.results.ok}"
