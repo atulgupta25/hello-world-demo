@@ -18,7 +18,7 @@ spec:
     spec:
       containers:
       - name: hello-world
-        image: atulgupta2593/hello-world-demo:v2
+        image: atulgupta2593/hello-world-demo:v3
         imagePullPolicy: Always
         ports:
         - containerPort: 8080
@@ -53,6 +53,7 @@ spec:
   metrics:
   - name: webcheck
     interval: 1s
+    failureLimit: 2
     failureCondition: result != 'true'
     successCondition: result == 'true'
     provider:
